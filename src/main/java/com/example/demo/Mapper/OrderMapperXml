@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD com.example.Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Mapper.OrderMapper">
+    <resultMap id="result" type="com.example.demo.Entity.Order">
+        <result property="orderId" column="orderId" javaType="Integer"/>
+        <result property="clientId" column="clientId" javaType="Integer"/>
+        <result property="orderDate" column="orderDate" javaType="Date"/>
+        <result property="quantity" column="quantity" javaType="Integer"/>
+        <result property="commont" column="commont" javaType="String"/>
+
+    </resultMap>
+    <select id="ListOrder" parameterType="map" resultMap="result">
+        SELECT * FROM orderagile limit #{start},#{end}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.example.demo.Entity.Order"
+            keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO orderagile(orderId,clientId,orderDate,quantity,commont)
+        VALUES (#{orderId,jdbcType=VARCHAR},#{clientId, jdbcType=VARCHAR},#{orderDate, jdbcType=VARCHAR},#{quantity,jdbcType=VARCHAR},#{commont,jdbcType=VARCHAR}  )
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from orderagile where orderId=#{orderId}
+    </delete>
+
+    <update id="Update" parameterType="com.example.demo.Entity.Order">
+        update orderagile set clientId=#{clientId},orderDate=#{orderDate},quantity=#{quantity},commont=#{commont} where orderId=#{orderId}
+    </update>
+</mapper>
